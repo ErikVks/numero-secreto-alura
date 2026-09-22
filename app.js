@@ -1,18 +1,34 @@
 let numeroMax = 10;
 let numeroSecreto = gerarNumeroAleatorio();
+let tentativas = 0;
 
-function exibiçãoDeTexto (tag,texto){
+function exibicaoDeTexto (tag,texto){
     let campo = document.querySelector(tag);
     campo.innerHTML = texto;
 }
 
-exibiçãoDeTexto('h1','Jogo do número secreto')
-exibiçãoDeTexto('p',`Escolha um número entre 1 e ${numeroMax}`)
+exibicaoDeTexto('h1','Jogo do número secreto');
+exibicaoDeTexto('p',`Escolha um número entre 1 e ${numeroMax}`);
 
 function verificarChute() {
-    console.log(numeroSecreto);
+    let chute = document.querySelector('input').value;
+    tentativas++;
+
+    if (chute == numeroSecreto){
+        exibicaoDeTexto('h1','Acertou');
+        let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
+        let mensagemVitoria = `Você descobriu o número secreto ${numeroSecreto} em ${tentativas} ${palavraTentativa}`;
+        exibicaoDeTexto('p',mensagemVitoria)
+    } else { if (chute > numeroSecreto){
+            exibicaoDeTexto('p',`O número secreto é menor que ${chute}`);
+        }
+        else{
+            exibicaoDeTexto('p',`O número secreto é maior que ${chute}`);            
+        }
+    }
+    
 }
 
 function gerarNumeroAleatorio(){
-    return parseInt(Math.random() * numeroMax + 1)
+    return parseInt(Math.random() * numeroMax + 1);
 }
